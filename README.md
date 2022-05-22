@@ -5,14 +5,16 @@ python snippets viewer
 ## install
 
 ```
-command
+pip install git+https://github.com/streanger/snippets.git
 ```
 
 ## usage
 
 ```
-command
+snippets
 ```
 
 ## screenshots
+
+![image](screenshots/snippets_viewer.png)
 
