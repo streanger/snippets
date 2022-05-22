@@ -4,6 +4,7 @@ import ast
 import json
 import random
 import hashlib
+import pkg_resources
 import pyperclip
 from pathlib import Path
 from rich import print
@@ -188,6 +189,16 @@ class SnippetsViewer():
         self.__matched = {index+1: item for index, item in enumerate(matched_list)}
         
         
+def static_file_path(directory, filename):
+    """get path of the specified filename from specified directory"""
+    resource_path = '/'.join((directory, filename))   # Do not use os.path.join()
+    try:
+        template = pkg_resources.resource_filename(__name__, resource_path)
+    except KeyError:
+        return 'none'   # empty string cause AttributeError, and non empty FileNotFoundError
+    return template
+    
+    
 def script_path():
     """set current path, to script path"""
     current_path = os.path.realpath(os.path.dirname(sys.argv[0]))
@@ -255,12 +266,12 @@ def sha256_sum(content):
 def collect_definitions(directory='modules'):
     """collect code definitions from many files"""
     definitions = []
-    modules_directory = Path(directory)
-    files = [modules_directory.joinpath(item) for item in os.listdir(modules_directory) if item.endswith('.py')]
+    modules_directory = static_file_path(directory, "")
+    files = [static_file_path(directory, filename) for filename in os.listdir(modules_directory) if filename.endswith('.py')]
     for file_path in files:
         try:
             content = read_file(file_path)
-            filename = file_path.name
+            filename = Path(file_path).name
             tree = ast.parse(content, filename=filename)
             for key, func in enumerate(parse_functions(tree.body)):
                 func_name = func.name
@@ -324,15 +335,15 @@ useful:
     https://rich.readthedocs.io/en/stable/appendix/colors.html
     
 think of/todo:
-    -list all functions and classes from many python files
-    -return it by user queries
-    -use ast parse instead of import & inspect
-    -use https://github.com/streanger/console-wrapper
-    -parse classes methods as functions
-    -copy to clipboard as flag in console
+    -list all functions and classes from many python files (+)
+    -return it by user queries (+)
+    -use ast parse instead of import & inspect (+)
+    -use https://github.com/streanger/console-wrapper (+)
+    -parse classes methods as functions (+)
+    -copy to clipboard as flag in console (+)
     -name for pypi - snippets
     -python code chunks for everyone
-    -many functions with the same name in one files is ok
+    -many functions with the same name in one files is ok (+)
     -definitions in .json (for now removed)
     -download external codes
     -remove local db if someones don't need it
