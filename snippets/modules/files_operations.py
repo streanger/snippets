@@ -63,6 +63,20 @@ def read_file(filename):
     return content
     
     
+def write_bin(filename, data):
+    """write to binary file"""
+    with open(filename, 'wb') as f:
+        f.write(data)
+    return True
+    
+    
+def read_bin(filename):
+    """read from binary file"""
+    with open(filename, "rb") as f:
+        data = f.read()
+    return data
+    
+    
 def list_directory_files(directory):
     """https://stackoverflow.com/questions/9816816/get-absolute-paths-of-all-files-in-a-directory"""
     for dirpath,_,filenames in os.walk(directory):

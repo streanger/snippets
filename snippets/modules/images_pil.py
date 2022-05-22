@@ -13,6 +13,18 @@ def open_image(filename):
     return img
     
     
+def make_gif(files, output='movie.gif'):
+    """make gif using imageio
+    
+    import imageio
+    """
+    with imageio.get_writer(output, mode='I', fps=60) as writer:
+        for file in files:
+            image = imageio.imread(file)
+            writer.append_data(image)
+    return True
+    
+    
 if __name__ == "__main__":
     pass
     
