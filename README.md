@@ -18,3 +18,4 @@ snippets
 
 ![image](screenshots/snippets_viewer.png)
 
+![image](screenshots/screen_time_snippets.png)
