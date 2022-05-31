@@ -15,7 +15,14 @@ def save_img_from_url(url, path):
     return True
     
     
-if __name__ == "__main__":
-    pass
+def url_image_to_bytes(url):
+    """read url image as bytes"""
+    response = requests.get(url)
+    if response.status_code != 200:
+        return False
+    return response.content
     
+    
+if __name__ == "__main__":
+    url = 'https://unsplash.com/photos/4DW0D3CK9B4/download?force=true'
     
