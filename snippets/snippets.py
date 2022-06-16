@@ -299,10 +299,7 @@ def collect_definitions(directory='modules'):
     
     
 def remove_duplicates_definitions(list_of_dicts):
-    """remove duplicate dicts from list
-    
-    for further use
-    """
+    """remove duplicate dicts from list"""
     reverse_dict = {(dictionary['func_name'], dictionary['sha256']): dictionary for dictionary in list_of_dicts}
     no_dupli_definitions = list(reverse_dict.values())
     return no_dupli_definitions
@@ -317,6 +314,7 @@ def viewer():
         os.system('color')
         
     definitions = collect_definitions(directory='modules')
+    definitions = remove_duplicates_definitions(definitions)
     snippets = SnippetsViewer(definitions, prompt='« snippets » ')
     snippets.run()
     return None
