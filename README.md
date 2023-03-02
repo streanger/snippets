@@ -24,9 +24,7 @@ snippets
 
 for snippets:
 
-- xor function
-
-- other functions for encryption/decryption, encoding/decoding
+- functions for encryption/decryption, encoding/decoding
 
 for code itself:
 
