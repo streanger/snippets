@@ -22,7 +22,20 @@ def url_image_to_bytes(url):
         return False
     return response.content
     
+
+def make_soup(response):
+    """create soup object from requests response
     
+    requires:
+        pip install lxml
+        pip install beautifulsoup4
+        import lxml
+        from bs4 import BeautifulSoup as bs
+    """
+    soup = bs(response.text, "lxml")
+    return soup
+
+
 if __name__ == "__main__":
     url = 'https://unsplash.com/photos/4DW0D3CK9B4/download?force=true'
     

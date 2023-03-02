@@ -6,7 +6,16 @@ from termcolor import colored
 
 
 def highlight(text, word, color=None, case=True):
-    """highlight single word in text, while full text is colored with color"""
+    """highlight single word in text, while full text is colored with color
+    
+    requires:
+        pip install termcolor
+        from termcolor import colored
+        
+    on Windows also:
+        import os
+        os.system('color')
+    """
     if color is None:
         color = 'white'
         
