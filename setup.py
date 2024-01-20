@@ -12,14 +12,14 @@ print(modules)
 
 setuptools.setup(
     name='snippets',
-    version='0.1.2',
+    version='0.1.3',
     author="streanger",
     description="python snippets viewer",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/streanger/snippets",
     packages=['snippets',],
-    install_requires=['pyperclip', 'rich'],
+    install_requires=['pyperclip', 'rich', 'setuptools', 'black'],
     include_package_data=True,
     package_data={
         'modules': modules,

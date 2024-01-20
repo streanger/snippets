@@ -27,7 +27,8 @@ EXAMPLE_TEXT = r"""
 """
 
 def highlight(text, word, color=None, case=True):
-    """highlight all occurances of specified word in text, by coloring its background. Rest of the text stays unchanged.
+    """highlight all occurances of specified word in text,
+    by coloring its background. Rest of the text stays unchanged.
 
     requires:
         pip install termcolor
