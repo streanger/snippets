@@ -1,18 +1,19 @@
-import sys
-import os
 import ast
-import json
-import random
 import hashlib
+import json
+import os
+import random
+import sys
+from pathlib import Path
+
 import pkg_resources
 import pyperclip
-from pathlib import Path
 from rich import print
-from rich.panel import Panel
-from rich.table import Table
-from rich.syntax import Syntax
-from rich.console import Console
 from rich.columns import Columns
+from rich.console import Console
+from rich.panel import Panel
+from rich.syntax import Syntax
+from rich.table import Table
 
 
 class SnippetsViewer():

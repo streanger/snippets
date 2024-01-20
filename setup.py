@@ -1,18 +1,18 @@
-import sys
 import os
-import setuptools
+import sys
 from pathlib import Path
 
+import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
-    
+
 modules = [os.path.join('modules', item) for item in os.listdir('snippets/modules')]
 print(modules)
 
 setuptools.setup(
     name='snippets',
-    version='0.1.1',
+    version='0.1.2',
     author="streanger",
     description="python snippets viewer",
     long_description=long_description,
