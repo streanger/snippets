@@ -145,11 +145,24 @@ class SnippetsViewer():
                     self.__last_definition = func_content
                     
                     if self.__codebox:
-                        highlighted = Syntax(func_content, "python", theme='monokai', line_numbers=True, indent_guides=True, word_wrap=True)
+                        highlighted = Syntax(
+                            func_content,
+                            "python",
+                            theme='monokai',
+                            line_numbers=True,
+                            indent_guides=True,
+                            word_wrap=True
+                        )
                         highlighted = Columns([Panel(highlighted)])
                         self.__console.print(highlighted)
                     else:
-                        highlighted = Syntax(func_content, "python", theme='monokai', line_numbers=False, word_wrap=True)
+                        highlighted = Syntax(
+                            func_content,
+                            "python",
+                            theme='monokai',
+                            line_numbers=False,
+                            word_wrap=True
+                        )
                         print(highlighted)
                         
                     if self.__clipboard:
@@ -197,7 +210,8 @@ def static_file_path(directory, filename):
     try:
         template = pkg_resources.resource_filename(__name__, resource_path)
     except KeyError:
-        return 'none'   # empty string cause AttributeError, and non empty FileNotFoundError
+        # empty string cause AttributeError, and non empty FileNotFoundError
+        return 'none'
     return template
 
 
@@ -339,7 +353,7 @@ useful:
     https://pygments.org/docs/styles/
     https://blog.jcharistech.com/2020/06/11/rich-text-and-beautiful-formatting-in-the-terminal-with-rich-python/
     https://rich.readthedocs.io/en/stable/appendix/colors.html
-    
+
 think of/todo:
     -list all functions and classes from many python files (+)
     -return it by user queries (+)
@@ -356,5 +370,4 @@ think of/todo:
     -prompt color as option stored in .json config
     -json config file stored in setup directory
     -some banner at start and/or number of snippets
-    -
 """
