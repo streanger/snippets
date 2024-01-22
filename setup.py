@@ -12,7 +12,7 @@ print(modules)
 
 setuptools.setup(
     name='snippets',
-    version='0.1.3',
+    version='0.1.4',
     author="streanger",
     description="python snippets viewer",
     long_description=long_description,
