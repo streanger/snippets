@@ -6,7 +6,7 @@ from pathlib import Path
 def extract_png_images(data: bytes):
     """parse bytes to find png images based on magic bytes
     we assume that images occurs one by one
-    
+
     :param data: data to analyze
     :type data: bytes
     """
