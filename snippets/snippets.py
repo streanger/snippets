@@ -8,13 +8,15 @@ from pathlib import Path
 
 import pkg_resources
 import pyperclip
+from black import FileMode, format_str
 from rich import print
 from rich.columns import Columns
 from rich.console import Console
 from rich.panel import Panel
 from rich.syntax import Syntax
 from rich.table import Table
-from black import format_str, FileMode
+
+from snippets.__version__ import __version__
 
 
 class SnippetsViewer():
@@ -49,6 +51,7 @@ class SnippetsViewer():
             ['exit\quit', 'exit from console'],
             ['flags', 'show flags status'],
             ['all', 'show all snippets'],
+            ['banner', 'show banner'],
             ['copy', 'copy last definition to clipboard'],
             ['codebox', 'turn on/off codebox'],
             ['clipboard', 'True -> always copy to clipboard'],
@@ -103,6 +106,10 @@ class SnippetsViewer():
                     # switch clipboard flag
                     self.__clipboard = not self.__clipboard
                     print('clipboard --> {}'.format(self.__clipboard))
+                    continue
+
+                elif query == 'banner':
+                    banner(snippets_number=len(self.__definitions))
                     continue
 
                 elif query == 'copy':
@@ -233,6 +240,42 @@ def read_file(filename, mode='r'):
     return content
 
 
+def banner(snippets_number=None):
+    colors = [
+        'bright_green',
+        'gold1',
+        'green1',
+        'green_yellow',
+        'magenta1',
+        'magenta2',
+        'red1',
+        'yellow',
+    ]
+    color = random.choice(colors)
+    # nice looking fonts: slant, ansi_shadow, poison, cosmic, cyberlarge, calvin_s
+    text = f"""[bold {color}]\
+
+ ███████╗███╗   ██╗██╗██████╗ ██████╗ ███████╗████████╗███████╗
+ ██╔════╝████╗  ██║██║██╔══██╗██╔══██╗██╔════╝╚══██╔══╝██╔════╝
+ ███████╗██╔██╗ ██║██║██████╔╝██████╔╝█████╗     ██║   ███████╗
+ ╚════██║██║╚██╗██║██║██╔═══╝ ██╔═══╝ ██╔══╝     ██║   ╚════██║
+ ███████║██║ ╚████║██║██║     ██║     ███████╗   ██║   ███████║
+ ╚══════╝╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝     ╚══════╝   ╚═╝   ╚══════╝[/bold {color}]"""
+    home = 'https://github.com/streanger/snippets'
+    if not snippets_number is None:
+        snippets_text = f'\n snippets: {snippets_number}'
+    else:
+        snippets_text = ''
+    formatted = f"""\
+{text}
+
+ [bold {color}]v.{__version__}{snippets_text}[/bold {color}]
+ [bold {color}]home:[/bold {color}] [bright_cyan]{home}[/bright_cyan]\
+"""
+    logo = Panel(formatted, border_style='royal_blue1', width=68)
+    print(logo)
+
+
 def write_json(filename, data):
     """write to json file"""
     with open(filename, 'w', encoding='utf-8') as fp:
@@ -313,7 +356,7 @@ def collect_definitions(directory='modules'):
                 # print(highlighted)
 
         except SyntaxError:
-            print('[red][x] SyntaxError while parsing function: {}'.format(function_name))
+            print('[red][x] SyntaxError while parsing function: {}'.format(func_name))
 
         finally:
             pass
@@ -334,10 +377,13 @@ def viewer():
     """
     if os.name == 'nt':
         os.system('color')
+        title = f'snippets v.{__version__}'
+        os.system(f'title {title}')
 
     definitions = collect_definitions(directory='modules')
     definitions = remove_duplicates_definitions(definitions)
     snippets = SnippetsViewer(definitions, prompt='« snippets » ')
+    banner(snippets_number=len(definitions))
     snippets.run()
     return None
 

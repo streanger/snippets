@@ -9,10 +9,13 @@ with open("README.md", "r") as fh:
 
 modules = [os.path.join('modules', item) for item in os.listdir('snippets/modules')]
 print(modules)
+version_path = Path(__file__).parent / 'snippets/__version__.py'
+version_info = {}
+exec(version_path.read_text(), version_info)
 
 setuptools.setup(
     name='snippets',
-    version='0.1.4',
+    version=version_info['__version__'],
     author="streanger",
     description="python snippets viewer",
     long_description=long_description,
