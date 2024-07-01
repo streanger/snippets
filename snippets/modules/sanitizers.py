@@ -24,7 +24,7 @@ def sanitize_unidecode_name(name):
     from unidecode import unidecode
     """
     name = unidecode(name)
-    allowed_chars = ascii_letters + digits + '-.[]()'
+    allowed_chars = ascii_letters + digits
     new_name_chars = [c if c in allowed_chars else "-" for c in name]
     new_name = "".join(new_name_chars).strip("-")
     new_name = re.sub("\-\-+", "-", new_name)
