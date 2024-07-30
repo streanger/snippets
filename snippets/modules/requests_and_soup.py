@@ -1,7 +1,9 @@
-import sys
-import os
-import requests
+from io import StringIO
+from pprint import pprint
+
 import lxml
+import pandas as pd
+import requests
 from bs4 import BeautifulSoup as bs
 
 
@@ -36,6 +38,29 @@ def make_soup(response):
     return soup
 
 
+def parse_html_table(table):
+    """convert html table to list of lists
+
+    :param table: html table soup object
+    :type table: bs4.Tag
+
+    pip install pandas
+    import pandas as pd
+    """
+    df = pd.read_html(StringIO(str(table)), header=0)[0]
+    return [df.columns.values.tolist()] + df.values.tolist()
+
+
 if __name__ == "__main__":
-    url = 'https://unsplash.com/photos/4DW0D3CK9B4/download?force=true'
-    
+    # TODO: other tests
+    # url = 'https://unsplash.com/photos/4DW0D3CK9B4/download?force=true'
+
+    # INFO: parse_html_table test
+    url = 'https://www.w3schools.com/html/html_tables.asp'
+    response = requests.get(url)
+    soup = bs(response.text, "lxml")
+    for index, table in enumerate(soup.find_all('table'), start=1):
+        print(f'{index})')
+        parsed_table = parse_html_table(table)
+        pprint(parsed_table, indent=4, width=100)
+        print()
